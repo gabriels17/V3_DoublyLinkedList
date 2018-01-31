@@ -11,36 +11,21 @@ int main() {
 
     stringList.append("fic");
     stringList.append("sdf");
-    stringList.append("wet");
+    stringList.prev();
+    stringList.prev();
+    stringList.next();
+    stringList.insert("pod");
     //stringList.move_to_pos(2);
-    stringList.append("fgh");
     cout << stringList << endl;
-
-    try{
-        stringList.clear();
-    }
-    catch(EmptyException){
-        cout << "Caught EmptyException" << endl;
-    }
-
-    try{
-        stringList.clear();
-    }
-    catch(EmptyException){
-        cout << "Caught EmptyException" << endl;
-    }
-
+    stringList.clear();
+    stringList.clear();
     cout << stringList << endl;
-    stringList.append("wet");
-    cout << stringList << endl;
-    /*stringList.insert("pod");
+    stringList.insert("wet");
     cout << stringList << endl;
     stringList.prev();
     stringList.append("bxph");
     cout << stringList << endl;
-    stringList.next();
-    cout << stringList << endl;
-    try{
+    /*try{
         stringList.remove();
         cout << stringList << endl;
     }catch(InvalidPositionException) {

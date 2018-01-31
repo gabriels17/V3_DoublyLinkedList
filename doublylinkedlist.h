@@ -8,7 +8,6 @@
 using namespace std;
 
 class InvalidPositionException { };
-class EmptyException { };
 
 template <class T>
 
@@ -42,7 +41,7 @@ class DoublyLinkedList {
         // Worst-case time complexity: Linear
         void clear() {
             if(size == 0){
-                throw EmptyException();
+                return;
             }
             move_to_end();
             prev();
@@ -52,8 +51,9 @@ class DoublyLinkedList {
                 currNode->prev->next = tail;
                 currNode = tmp_node->prev;
             }
+            currNode = tail;
             size = 0;
-            ///TODO: Implement
+            currentPosition = 0;
         }
 
         // Insert an element at the current location.
@@ -63,6 +63,8 @@ class DoublyLinkedList {
             ListNode<T>* node = new ListNode<T>(item, currNode->prev, currNode);
             currNode->prev->next = node;
             currNode->prev = node;
+            size++;
+            ///Breyta currNode?
         }
 
         // Append an element at the end of the list.
@@ -72,6 +74,7 @@ class DoublyLinkedList {
             ListNode<T>* node = new ListNode<T>(item, tail->prev, tail);
             node->prev->next = node;
             tail->prev = node;
+            currentPosition++;
             size++;
         }
 
@@ -103,7 +106,7 @@ class DoublyLinkedList {
         // Worst-case time complexity: Constant
         void move_to_end() {
             currNode = tail;
-            currentPosition = size - 1;
+            currentPosition = size;
             ///TODO: Implement
         }
 
@@ -111,6 +114,9 @@ class DoublyLinkedList {
         // if already at beginning.
         // Worst-case time complexity: Constant
         void prev() {
+            if(currNode == head->next){
+                return;
+            }
             currNode = currNode->prev;
             currentPosition--;
             ///TODO: Implement
@@ -120,7 +126,11 @@ class DoublyLinkedList {
         // if already at end.
         // Worst-case time complexity: Constant
         void next() {
+            if(currNode == tail){
+                return;
+            }
             currNode = currNode->next;
+            currentPosition++;
             ///TODO: Implement
         }
 
