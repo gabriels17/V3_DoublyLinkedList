@@ -12,49 +12,33 @@ int main() {
     stringList.append("fic");
     stringList.append("sdf");
     stringList.prev();
-    stringList.prev();
-    stringList.next();
     stringList.insert("pod");
-    //stringList.move_to_pos(2);
+    stringList.append("bxph");
+    cout << stringList << endl;
+    stringList.move_to_pos(2);
+    stringList.remove();
     cout << stringList << endl;
     stringList.clear();
     stringList.clear();
     cout << stringList << endl;
     stringList.insert("wet");
-    cout << stringList << endl;
-    stringList.prev();
     stringList.append("bxph");
     cout << stringList << endl;
-    /*try{
-        stringList.remove();
-        cout << stringList << endl;
-    }catch(InvalidPositionException) {
-        cout << "Caught InvalidPositionException" << endl;
-    }
-
     try{
         stringList.remove();
         cout << stringList << endl;
     }catch(InvalidPositionException) {
         cout << "Caught InvalidPositionException" << endl;
     }
-    cout << stringList << endl;
-    stringList.prev();
-
-    cout << stringList << endl;
-    stringList.insert("ah");
-
-    cout << stringList << endl;
-
-    stringList.next();
-    cout << stringList << endl;
-    stringList.next();
-
-    cout << stringList << endl;
-    stringList.prev();
-
-    cout << stringList << endl;
+    try{
+        stringList.remove();
+        cout << stringList << endl;
+    }catch(InvalidPositionException) {
+        cout << "Caught InvalidPositionException" << endl;
+    }
     stringList.append("z");
+    stringList.prev();
+    stringList.insert("ah");
     cout << stringList << endl;
 
     cout << endl << "INT_LIST" << endl << endl;
@@ -65,7 +49,7 @@ int main() {
     intList.move_to_start();
     intList.insert(7);
     cout << intList << endl;
-*/
+
     return 0;
 }
 

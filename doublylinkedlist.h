@@ -19,22 +19,16 @@ class DoublyLinkedList {
             head->next = tail;
             tail->prev = head;
             currNode = tail;
-            currentPosition = 0;
+            currentPosition = 1;
             size = 0;
 
         }
 
         ~DoublyLinkedList() {
-            ///ListNode<T>* tmp_node = currNode;
-            for(int i = 0; i < size; i++){
-                move_to_start();
-                //tmp_node = currNode;
-                next();
-                delete currNode;
-
-            }
-            ///delete head;
-            ///delete tail;
+            ///clear();
+            delete head;
+            delete tail;
+            ///delete currNode;
         }
 
         // Clear contents from the list, to make it empty.
@@ -50,10 +44,11 @@ class DoublyLinkedList {
                 tail->prev = currNode->prev;
                 currNode->prev->next = tail;
                 currNode = tmp_node->prev;
+                ///delete tmp_node;
             }
             currNode = tail;
+            currentPosition = 1;
             size = 0;
-            currentPosition = 0;
         }
 
         // Insert an element at the current location.
@@ -63,8 +58,9 @@ class DoublyLinkedList {
             ListNode<T>* node = new ListNode<T>(item, currNode->prev, currNode);
             currNode->prev->next = node;
             currNode->prev = node;
+            currNode = node;
+            ///currentPosition er í ruglinu
             size++;
-            ///Breyta currNode?
         }
 
         // Append an element at the end of the list.
@@ -84,30 +80,33 @@ class DoublyLinkedList {
         // Throws InvalidPositionException if current position is
         // behind the last element
         T remove() {
-            if(currentPosition = size - 1){
+            if(currNode == tail){
                 throw InvalidPositionException();
             }
+            T tmp_value = currNode->data;
+            ListNode<T>* tmp_node = currNode;
 
             currNode->prev->next = currNode->next;
             currNode->next->prev = currNode->prev;
-            return currNode->data;
-            ///TODO: Implement
-            ///remember to return a value
+            currNode = currNode->next;
+            size--;
+
+            ///delete tmp_node;
+            return tmp_value;
         }
 
         // Set the current position to the start of the list
         // Worst-case time complexity: Constant
         void move_to_start() {
             currNode = head->next;
-            ///TODO: Implement
+            currentPosition = 1;
         }
 
         // Set the current position to the end of the list
         // Worst-case time complexity: Constant
         void move_to_end() {
             currNode = tail;
-            currentPosition = size;
-            ///TODO: Implement
+            currentPosition = size + 1;
         }
 
         // Move the current position one step left. No change
@@ -119,7 +118,6 @@ class DoublyLinkedList {
             }
             currNode = currNode->prev;
             currentPosition--;
-            ///TODO: Implement
         }
 
         // Move the current position one step right. No change
@@ -131,7 +129,6 @@ class DoublyLinkedList {
             }
             currNode = currNode->next;
             currentPosition++;
-            ///TODO: Implement
         }
 
         // Return: The number of elements in the list.
@@ -155,7 +152,7 @@ class DoublyLinkedList {
                 throw InvalidPositionException();
             }
 
-            if(pos == currentPosition){
+            else if(pos == currentPosition){
                 return;
             }
             else if(pos - currentPosition < 0){
@@ -172,7 +169,6 @@ class DoublyLinkedList {
                     i--;
                 }
             }
-            ///TODO: Implement
         }
 
         // Return: The current element.
