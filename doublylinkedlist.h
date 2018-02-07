@@ -19,16 +19,15 @@ class DoublyLinkedList {
             head->next = tail;
             tail->prev = head;
             currNode = tail;
-            currentPosition = 1;
+            currentPosition = 0;
             size = 0;
 
         }
 
         ~DoublyLinkedList() {
-            ///clear();
+            clear();
             delete head;
             delete tail;
-            ///delete currNode;
         }
 
         // Clear contents from the list, to make it empty.
@@ -44,10 +43,10 @@ class DoublyLinkedList {
                 tail->prev = currNode->prev;
                 currNode->prev->next = tail;
                 currNode = tmp_node->prev;
-                ///delete tmp_node;
+                delete tmp_node;
             }
             currNode = tail;
-            currentPosition = 1;
+            currentPosition = 0;
             size = 0;
         }
 
@@ -58,8 +57,7 @@ class DoublyLinkedList {
             ListNode<T>* node = new ListNode<T>(item, currNode->prev, currNode);
             currNode->prev->next = node;
             currNode->prev = node;
-            currNode = node;
-            ///currentPosition er í ruglinu
+            currentPosition++;
             size++;
         }
 
@@ -67,10 +65,12 @@ class DoublyLinkedList {
         // item: The element to be appended.
         // Worst-case time complexity: Constant
         void append(const T& item) {
+            if(currentPosition == size){
+                currentPosition++;
+            }
             ListNode<T>* node = new ListNode<T>(item, tail->prev, tail);
             node->prev->next = node;
             tail->prev = node;
-            currentPosition++;
             size++;
         }
 
@@ -90,8 +90,7 @@ class DoublyLinkedList {
             currNode->next->prev = currNode->prev;
             currNode = currNode->next;
             size--;
-
-            ///delete tmp_node;
+            delete tmp_node;
             return tmp_value;
         }
 
@@ -99,12 +98,15 @@ class DoublyLinkedList {
         // Worst-case time complexity: Constant
         void move_to_start() {
             currNode = head->next;
-            currentPosition = 1;
+            currentPosition = 0;
         }
 
         // Set the current position to the end of the list
         // Worst-case time complexity: Constant
         void move_to_end() {
+            if(currNode == tail){
+                return;
+            }
             currNode = tail;
             currentPosition = size + 1;
         }
@@ -148,7 +150,7 @@ class DoublyLinkedList {
         // Worst-case time complexity: Linear
         // Throws InvalidPositionException if 'pos' is not a valid position
         void move_to_pos(int pos) {
-            if(pos + 1 == size){
+            if(pos > size || pos < 0){
                 throw InvalidPositionException();
             }
 
@@ -156,17 +158,13 @@ class DoublyLinkedList {
                 return;
             }
             else if(pos - currentPosition < 0){
-                int i = pos - currentPosition;
-                while(i != 0){
+                for(int i = pos - currentPosition; i < 0; i++){
                     prev();
-                    i++;
                 }
             }
             else if(pos - currentPosition > 0){
-                int i = pos - currentPosition;
-                while(i != 0){
+                for(int i = pos - currentPosition; i > 0; i--){
                     next();
-                    i--;
                 }
             }
         }
@@ -176,6 +174,9 @@ class DoublyLinkedList {
         // Throws InvalidPositionException if current position is
         // behind the last element
         const T& get_value() const {
+            if(currentPosition >= size){
+                throw InvalidPositionException();
+            }
             return currNode->data;
         }
 
