@@ -9,13 +9,25 @@ int main() {
 
     DoublyLinkedList<string> stringList;
     stringList.clear();
+    stringList.append("fic");
+    cout << stringList.curr_pos() << endl;
     stringList.prev();
+    cout << stringList.curr_pos() << endl;
     stringList.next();
+    cout << stringList.curr_pos() << endl;
+    stringList.append("fic");
+    stringList.append("fic");
+    stringList.append("fic");
+    stringList.append("fic");
+    stringList.append("fic");
+    stringList.append("fic");
     cout << stringList.curr_pos() << endl;
     stringList.move_to_end();
     cout << stringList.curr_pos() << endl;
+    stringList.next();
+    cout << stringList.curr_pos() << endl;
 
-    try{
+    /*try{
         stringList.remove();
     }
     catch(InvalidPositionException){cout << "bla" << endl;}
@@ -27,7 +39,7 @@ int main() {
     stringList.clear();
     cout << stringList.curr_pos() << endl;
 
-/*
+
     stringList.next();
     cout << stringList.curr_pos() << endl;
     stringList.append("fic");
@@ -35,22 +47,19 @@ int main() {
     stringList.append("pod");
     stringList.append("oli");
     stringList.clear();
-    cout << stringList.curr_pos() << endl;
     stringList.prev();
-    cout << stringList.get_value() << endl;
+    try{
+    cout << stringList.get_value() << endl;}
+    catch(InvalidPositionException){}
+    cout << "3";
     stringList.prev();
     stringList.insert("why?");
     stringList.insert("pod");
     stringList.append("bxph");
     cout << stringList << endl;
-    stringList.move_to_pos(4);
-    cout << stringList.curr_pos() << endl;
     stringList.move_to_pos(2);
     cout << stringList.curr_pos() << endl;
     stringList.move_to_pos(0);
-    cout << stringList.curr_pos() << endl;
-    stringList.move_to_pos(stringList.length());
-    cout << stringList.curr_pos() << endl;
     stringList.move_to_pos(2);
     cout << stringList.curr_pos() << endl;
     stringList.remove();
@@ -65,7 +74,7 @@ int main() {
     catch(InvalidPositionException){
         cout << "NEI" << endl;
     }
-    stringList.move_to_pos(3);
+    cout << stringList << endl;
     stringList.insert("jaa");
     cout << stringList << endl;
     stringList.clear();

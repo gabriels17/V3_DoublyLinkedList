@@ -65,7 +65,7 @@ class DoublyLinkedList {
         // item: The element to be appended.
         // Worst-case time complexity: Constant
         void append(const T& item) {
-            if(currentPosition == size){
+            if(currNode == tail){
                 currentPosition++;
             }
             ListNode<T>* node = new ListNode<T>(item, tail->prev, tail);
@@ -150,7 +150,7 @@ class DoublyLinkedList {
         // Worst-case time complexity: Linear
         // Throws InvalidPositionException if 'pos' is not a valid position
         void move_to_pos(int pos) {
-            if(pos > size || pos < 0){
+            if(pos > size + 1 || pos < 0){
                 throw InvalidPositionException();
             }
 
